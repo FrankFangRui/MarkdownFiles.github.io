@@ -36,4 +36,26 @@
 控制反转，就是在有一系列的类当中，A类引用B类，B类引用C类，然后在引用的时候，直接在这个类当中 new 这个要引用的类，在这种情况下如果C类的构造方法发生改变的话，就要同时修改ABC三个类当中的构造方法，导致代码耦合性高，而控制反转就是 在AB类中直接传入构建好的类，而不是直接new一个类，这个时候要修改传送的 C类的值的时候，就只需要修改 C类的构造方法就可以了
 ```
 
- 
+ ![image-20230421094319543](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230421094319543.png)
+
+![image-20230421094334684](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230421094334684.png)
+
+```
+Spring 是什么？
+如何理解 Spring？
+IoC 和 DI 是啥？有什么区别？
+Spring 最核心的功能是啥？
+```
+
+Spring是一个开源的Java框架，它的核心功能是提供了一个容器，可以管理对象的生命周期和对象之间的依赖关系。Spring框架的核心特性可用于开发任何Java应用程序，但也有一些扩展可用于在Java EE平台之上构建Web应用程序。Spring框架旨在通过启用基于POJO的编程模型使J2EE开发更易于使用并促进良好的编程实践。²⁴
+
+IoC和DI是两个概念，但是它们之间有很大的关联。IoC是一种设计模式，是一种思想，相当于一个容器，而DI就好比是实现IoC的一种方式。IoC强调的是将对象实例的创建控制权由spring容器来统一管理，需要的时候从容器中取出，而不是由调用者自身去创建，从而达到降低代码耦合性与硬代码的目的。而依赖注入强调的是当调用者需要使用对象实例时，spring会自动将对象实例注入到调用者中去。¹³⁴
+
+希望这能帮到你。还有什么其他问题吗？
+
+源: 与必应的对话， 2023/4/21
+(1) Spring 框架 - 概述. https://www.w3schools.cn/spring/spring_overview.asp.
+(2) Spring框架的主要功能_hibeary的博客-CSDN博客. https://blog.csdn.net/hibeary/article/details/83641897.
+(3) Spring的主要核心_什么是spring容器的内核_啊嘻嘻嘻西八的博客-CSDN博客. https://blog.csdn.net/Saika_xy/article/details/87482474.
+(4) Spring核心技术详解(一) - 知乎 - 知乎专栏. https://zhuanlan.zhihu.com/p/93925540.
+(5) spring三个核心功能_今朝您好的博客-CSDN博客. https://blog.csdn.net/gengenwa/article/details/118631021.
