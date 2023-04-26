@@ -8,6 +8,10 @@
 
 如果要给轮胎增加一个新的特性，来更改轮胎的尺寸就要更改一连串不同类上的方法
 
+通过一个个类的构造方法来传递参数
+
+车架类传递给底盘类，再传递给轮胎类
+
 <img src="C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230420201024112.png" alt="image-20230420201024112" style="zoom:50%;" />
 
 这个修改的权限在于程序员手中
@@ -22,7 +26,7 @@
 
 <img src="C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230420202129682.png" alt="image-20230420202129682" style="zoom:50%;" />
 
-当需要更改参数的时候，只需要修改 Tire 类的代码，其他类的代码不需要改变，成功降低了代码的耦合性，当 tire 修改的时候，只需要修改 Tire 类，而其他类不需要修改
+当需要添加参数（颜色）的时候，只需要修改 Tire 类的代码，其他类的代码不需要改变，成功降低了代码的耦合性，当 tire 修改的时候，只需要修改 Tire 类，而其他类不需要修改
 
 <img src="C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230420202921763.png" alt="image-20230420202921763" style="zoom:50%;" />
 
