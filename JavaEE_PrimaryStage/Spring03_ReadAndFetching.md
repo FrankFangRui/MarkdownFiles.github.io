@@ -21,6 +21,22 @@ XXX是java文件下的内容
 <img src="C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230422224840427.png" alt="image-20230422224840427" style="zoom:50%;" />
 
 ```
+`<content:component-scan>` 是 Spring Framework 的一个配置元素，用于在指定的包（package）下自动扫描和注册符合条件的类。它的主要作用是简化 Spring 应用程序的配置，通过自动发现和注册符合条件的 Spring bean（如带有 @Component, @Service, @Repository 和 @Controller 注解的类）。
+
+在你给出的示例中：
+
+​```
+<content:component-scan base-package="com.demo">
+​```
+
+这个配置表示 Spring 将会自动扫描 `com.demo` 包及其子包下的所有类，找到那些带有相关注解（如 @Component, @Service, @Repository 和 @Controller）的类，并将它们自动注册为 Spring bean。这样，你就无需在配置文件中逐个手动注册这些类了，从而简化了配置过程。
+
+这种自动扫描和注册机制使得 Spring 应用程序的组件更易于管理和维护，也提高了代码的可读性和可维护性。
+```
+
+
+
+```
 2.在对象的类上方添加注释
 ```
 
