@@ -30,8 +30,6 @@ Lombok 可以与许多常见的 Java 开发工具和框架一起使用，例如 
 
 
 
-![image-20230426200724375](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230426200724375.png)
-
 <img src="C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230426201240181.png" alt="image-20230426201240181" style="zoom:50%;" />
 
 
@@ -294,7 +292,6 @@ public class Person {
         <property name="name" value="John Doe"/>
         <property name="age" value="30"/>
     </bean>
-
 </beans>
 ​```
 
@@ -353,8 +350,8 @@ Hello, my name is John Doe, and I am 30 years old.
 
 
 ```
-1.实例化 Bean (为 Bean 分配内存空间) 对应JVM中的“加载” 【从无到有，将字节码转换成内存中的对象，只是分配了内存】     买一个毛坯房
-2.设置属性 (Bean 注入和装配)    准备装修材料
+1.实例化 Bean (为 Bean 分配内存空间) 对应JVM中的“加载” 【从无到有，将字节码转换成内存中的对象，只是分配了内存】  调用构造方法创建对象，但是对象的属性还没有配置   买一个毛坯房
+2.设置属性 (Bean 注入和装配)  通过@Autowired注解，来自动将Bean对象的属性注入  准备装修材料
 3.Bean 初始化     开始装修
   a) 各种通知 打电话给各个装修师傅来装修
   b) 初始化的前置工作 师傅到达现场，勘察环境，指定装修方法【前置工作】
@@ -465,5 +462,9 @@ Bean 可以被使用了。
 
 ```
 @Autowired注解是Spring框架中的一个注解，它可以自动装配一个bean。当一个类中有@Autowired注解的变量时，Spring会在类加载时自动为这个变量赋值。
+Bean的生命周期：
+实例化：在APP3中创建对象赋值给引用 ac，然后通过Spring来获取Bean对象，此时就会实例化Bean对象，开始调用对象的构造方法，并在内存中开辟出空间
+属性注入：Spring会为带有 @Autowired 的属性注入对象
+初始化：开始调用Bean中的postConstruct等方法
 ```
 
