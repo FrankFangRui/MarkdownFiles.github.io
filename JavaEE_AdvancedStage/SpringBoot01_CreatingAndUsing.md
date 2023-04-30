@@ -83,3 +83,82 @@ SpringBoot版本选择后面有（SNAPSHOT)是尝鲜版，可能有错
 
 加了Mysql就要配置数据源，不然就启动不起来
 
+![image-20230428140805086](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428140805086.png)
+
+DemoApplication变成上述的图标，要经过 pom.xml 中的依赖导入
+
+![image-20230428145602505](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428145602505.png)
+
+```
+四个划横线的无效文件可以删除
+```
+
+![image-20230428151424367](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428151424367.png)
+
+SpringBoot 项目的启动类
+
+```
+运行 Spring Boot:
+先找到 Spring Boot 的启动类 （@SpringBootApplication), 运行启动类中的 main 方法就可以了。
+第一次时，一定要这样运行
+```
+
+![image-20230428155628438](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428155628438.png)
+
+```
+自定义数据源，可以是阿里的(不建议，可能有问题)
+```
+
+```
+登录 start.sprint.io 网页
+```
+
+![image-20230428155902466](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428155902466.png)
+
+```
+在右边配置依赖，点击generate,下载
+```
+
+![image-20230428160122495](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428160122495.png)
+
+```
+IDEA 创建 Spring 项目一直失败，就可以通过网页来创建
+```
+
+![image-20230428160411713](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428160411713.png)
+
+![image-20230428160420780](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428160420780.png)
+
+```
+下载下来的包和IDEA中生成的一样
+```
+
+
+
+![image-20230428163659304](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428163659304.png)
+
+```
+目录层级变化可能导致项目运行失败，无法在浏览器中访问
+```
+
+![image-20230428163758959](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428163758959.png)
+
+项目能成功启动
+
+![image-20230428163738458](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428163738458.png)
+
+```
+因为没有把文件存到框架里面，所以没有加载这个文件
+要在 DemoApplication 同级或者其目录下
+因为Spring当中原本是要配置路径的，在路径下寻找有注解的文件，而SpringBoot自己划分了配置路径，要把文件放在配置路径下，才能被正确识别到
+```
+
+![image-20230428165026655](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230428165026655.png)
+
+
+
+```
+当窗口右边的Maven不见了，因为pom.xml文件不见了
+```
+
+![image-20230429103952749](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230429103952749.png)
