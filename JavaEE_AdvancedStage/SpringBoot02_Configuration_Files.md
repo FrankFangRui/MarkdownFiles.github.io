@@ -331,6 +331,48 @@ spring:
 来决定要用哪一个配置文件
 dev指的就是左边yml文件的后缀 (application-dev.yml)
 
-注意在 yml 文件中不能出现重复标签 例如：spring 不能出现两个
+注意在 yml 文件中不能出现重复标签
+```
+
+```
+在Spring Boot应用程序中，`application.properties`或`application.yml`文件是默认的配置文件，它们包含应用程序的默认配置属性。当您启动应用程序时，Spring Boot会自动加载这些默认配置文件，并使用其中的属性来配置应用程序的各个组件。
+
+如果您想要加载其他配置文件，例如特定于环境的配置文件或自定义配置文件，您可以通过`spring.profiles.active`属性来指定要加载的配置文件。
+
+例如，当您将`spring.profiles.active`设置为`prod`时，Spring Boot将尝试加载以下文件：
+
+- `application.yml` 或 `application.properties`
+- `application-prod.yml` 或 `application-prod.properties`
+
+在加载这些文件时，它们的属性将覆盖默认的`application.yml` 或 `application.properties`文件中的属性。
+
+如果您想要加载其他的配置文件，例如`custom-config.yml`，可以将其放置在classpath中，然后在`spring.profiles.active`中指定它的名称，例如：
+
+​```
+spring:
+  profiles:
+    active: custom
+​```
+
+这将加载以下文件：
+
+- `application.yml` 或 `application.properties`
+- `custom-config.yml`
+
+需要注意的是，当指定了`spring.profiles.active`属性时，Spring Boot只会加载激活的配置文件，并忽略其他配置文件。因此，如果您想要加载多个配置文件，您需要在激活的配置文件中包含所有必要的属性。
+
+如果您的应用程序有其他的配置文件，例如特定于环境的配置文件或自定义配置文件，但没有在spring.profiles.active属性中指定它们的名称，那么这些配置文件将不会被加载。因此，您需要确保在默认的application.yml 或 application.properties配置文件中包含所有必要的属性。
+
+需要注意的是，如果您的应用程序有多个激活的配置文件，例如dev和prod，并且它们都定义了相同的属性，那么最后被加载的属性将是最后一个被加载的配置文件中的属性。这可能会导致属性值被覆盖或覆盖其他属性值的问题。因此，在定义属性时需要小心，确保属性的定义顺序正确，并且不会相互冲突。
+```
+
+```
+那意思就是没有用active来连接其他文件的话，只会加载 application 文件是吗？
+```
+
+```
+是的，如果没有指定`spring.profiles.active`属性，Spring Boot将只加载默认的`application.yml` 或 `application.properties`配置文件，而不会加载其他配置文件。如果您没有定义其他配置文件，那么应用程序将只使用默认的`application.yml` 或 `application.properties`文件中的属性来配置应用程序的各个组件。
+
+因此，如果您想要使用其他配置文件来配置应用程序的组件，您需要使用`spring.profiles.active`属性来指定要加载的配置文件，或者将其他配置文件包含在默认的`application.yml` 或 `application.properties`文件中。
 ```
 
