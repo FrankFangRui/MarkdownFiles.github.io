@@ -14,17 +14,17 @@ Spring Boot 日志文件主要用于记录应用程序运行时的详细信息�
 Spring Boot 通常使用 Logback、Log4j2 或 java.util.logging 作为日志框架，通过配置文件（如 logback-spring.xml、log4j2-spring.xml 或 application.properties）可以灵活地调整日志级别、输出格式、输出目标等。这样一来，开发人员可以根据实际需求自定义日志策略，更好地满足项目的监控、调试和优化需求。
 ```
 
-## 2.日志的使用
+## 2.日志的使用 
 
 ```
-SpringBoor项目在启动的时候就默认有日志输出
+SpringBoot项目在启动的时候就默认有日志输出
 ```
 
 ![image-20230502110119682](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230502110119682.png)
 
 ```
 可以看出 Spring Boot 内置了日志框架
-输出的日志不是开发者定和打印了
+输出的日志不是开发者自己定义的
 默认打印在控制台上，且无法保存，下次重写加载之后就消失了，那么要怎么将日志永久保存下来呢？
 ```
 
@@ -110,7 +110,7 @@ c. e. 是 com. demo.的缩写
 
 ![image-20230502115537151](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230502115537151.png)
 
-#### 常用的日志框架说明（了解）
+#### 常用的日志框架说明 
 
 ![image-20230502120038756](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230502120038756.png)
 
@@ -146,7 +146,7 @@ c. e. 是 com. demo.的缩写
 ### 4.2 日志级别的分类与使用
 
 ```
-六个常见日志级别的作用和应用场景。
+六个常见日志级别的作用和应用场景 。
 
 1. **TRACE**：
    作用：记录程序执行的细节信息，包括函数调用、循环迭代等。
