@@ -54,3 +54,84 @@ try {
 通过以上步骤，我们可以在 Java 程序中使用 JDBC 进行数据库操作。虽然 JDBC 是一个功能强大的 API，但操作过程繁琐，需要编写大量重复的代码。这也是为什么许多开发者会选择使用 ORM 框架（如 MyBatis、Hibernate 等）来简化数据库操作。
 
 ## 搭建 MyBatis 开发环境
+
+![image-20230506163327167](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506163327167.png)
+
+![image-20230506163337764](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506163337764.png)
+
+<img src="C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506152145163.png" alt="image-20230506152145163" style="zoom:50%;" />
+
+```
+创建项目的时候，这五个依赖都要加入
+```
+
+```
+当 添加了 Mysql 依赖，但是没有设置 Mysql 链接的时候，就会报错
+```
+
+![image-20230506152250428](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506152250428.png)
+
+```
+当IDEA右边窗口没有Maven的时候，通过点击Project 右键 Add Framework 来添加框架依赖
+```
+
+<img src="C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506152521799.png" alt="image-20230506152521799" style="zoom:33%;" />
+
+<img src="C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506152531961.png" alt="image-20230506152531961" style="zoom:33%;" />
+
+```
+链接数据库
+spring.datasource.url=jdbc:mysql://localhost:3306/mycnblog?characterEncoding=utf8&useSSL=utf8
+spring.datasource.username=root
+spring.datasource.password=123123
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+```
+
+![image-20230506153417544](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506153417544.png)
+
+```
+MyBatis 组成 2 部分：
+1.接口 （包含表的所有操作方法）  --> 给程序其他类调用
+2.XML 实现接口  --> 写具体 SQL 语句，（把SQL语句直接通过 String 写在类当中很难看）
+```
+
+## 根据 id 查询数据库的用户信息
+
+![image-20230506210546918](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506210546918.png)
+
+```
+1. 创建实体类
+```
+
+![image-20230506210623890](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506210623890.png)
+
+```
+2. 构建Mapper层的代码实现
+2.1 创建接口 （包含表的所有操作方法）
+```
+
+![image-20230506211052921](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506211052921.png)
+
+```
+2.2 创建 XML 实现
+```
+
+<img src="C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506211218179.png" alt="image-20230506211218179" style="zoom:50%;" />
+
+```
+在 mybatis 文件夹下创建 .xml 文件
+```
+
+![image-20230506211431159](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506211431159.png)
+
+<img src="C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506211721438.png" alt="image-20230506211721438" style="zoom:50%;" />
+
+```
+namespace 指代的是 mapper 文件夹中 UserMapper 文件的 source 地址
+select 中的 id 指代的是 UserMapper 中的方法名, resultType 指的是返回的类型（返回 用户信息 对象），即 entity 中的 UserInfo 地址 
+id = ${user_id}
+{} 内是动态标签，目的是传递参数，可以变化但是要和 UserMapper 中的 @Param中的参数一样
+```
+
+![image-20230506212044383](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506212044383.png)
+
