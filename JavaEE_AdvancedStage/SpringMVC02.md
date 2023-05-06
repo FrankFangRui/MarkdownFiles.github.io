@@ -88,6 +88,7 @@ Spring MVC (Spring Boot -> Spring Web)
 
 ```
 解决 文件覆盖 和 上传文件类型 不同的问题
+通过拼接 根目录，唯一文件名，文件的后缀的方式来保证每次存储不会覆盖之前的文件和确定文件类型
 ```
 
 ![image-20230504191449516](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230504191449516.png)
