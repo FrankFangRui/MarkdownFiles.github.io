@@ -5,7 +5,7 @@
  
  -- NOT NULL (非空约束）
  
- CREATE DATABASE dbtest;
+
  USE dbtest;
  
  CREATE TABLE test1(
@@ -54,3 +54,38 @@
  );
  SELECT * FROM information_schema.table_constraints
  WHERE table_name = 'test2';
+ 
+ # 
+ SELECT *
+ FROM test2;
+ 
+ INSERT INTO test2(id,last_name,email,salary)
+ VALUES(3,'TOM',NULL,4600);
+ 
+ ALTER TABLE test2
+ ADD CONSTRAINT uk_test2_sal UNIQUE(salary);
+ 
+  INSERT INTO test2(id,last_name,email,salary)
+ VALUES(2,'TOM',NULL,4600);
+ 
+ DESC test2;
+ 
+ ALTER TABLE test2
+ MODIFY last_name VARCHAR(15) UNIQUE;
+ 
+ # 复合的唯一约束
+ CREATE TABLE USER(
+ id INT,
+ `name` VARCHAR(15),
+ `password` VARCHAR(25),
+ CONSTRAINT uk_user_name_pwd UNIQUE(`name`,`password`)
+ );
+ 
+ DESC USER;
+ 
+ INSERT INTO USER
+ VALUES(1,'Tom','abc');
+ 
+ INSERT INTO USER
+ VALUES(2,'Tom2','abc');
+ 
