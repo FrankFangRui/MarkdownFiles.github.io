@@ -90,6 +90,12 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 ![image-20230506153417544](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506153417544.png)
 
 ```
+配置Mybatis中的XML路径，根路径是在 source 文件夹下
+```
+
+![image-20230507153829367](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230507153829367.png)
+
+```
 MyBatis 组成 2 部分：
 1.接口 （包含表的所有操作方法）  --> 给程序其他类调用
 2.XML 实现接口  --> 写具体 SQL 语句，（把SQL语句直接通过 String 写在类当中很难看）
@@ -135,3 +141,24 @@ id = ${user_id}
 
 ![image-20230506212044383](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230506212044383.png)
 
+```
+2.3 实现服务层
+```
+
+![image-20230507150417887](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230507150417887.png)
+
+```
+2.4 实现控制器
+```
+
+![image-20230507151309657](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230507151309657.png)
+
+![image-20230507151647229](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230507151647229.png)
+
+
+
+
+
+![image-20230507153110689](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230507153110689.png)
+
+![image-20230507153119390](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230507153119390.png)
