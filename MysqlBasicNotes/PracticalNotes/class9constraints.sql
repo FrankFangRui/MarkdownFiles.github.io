@@ -89,3 +89,85 @@
  INSERT INTO USER
  VALUES(2,'Tom2','abc');
  
+ # 案例
+ #学生表
+CREATE TABLE student(
+    sid INT,	#学号
+    sname VARCHAR(20),	#姓名
+    tel CHAR(11) UNIQUE KEY,  #电话
+    cardid CHAR(18) UNIQUE KEY #身份证号
+);
+
+#课程表
+CREATE TABLE course(
+    cid INT,  #课程编号
+    cname VARCHAR(20)     #课程名称
+);
+
+#选课表
+CREATE TABLE student_course(
+    id INT,
+    sid INT,
+    cid INT,
+    score INT,
+    UNIQUE KEY(sid,cid)  #复合唯一
+);
+ 
+SELECT * FROM information_schema.table_constraints
+WHERE table_name = 'student_course';
+
+ALTER TABLE student_course
+DROP INDEX sid;
+
+# 主键约束
+
+
+ 
+CREATE TABLE test5(
+id INT,
+last_name VARCHAR(15),
+salary DECIMAL(10,2),
+email VARCHAR(25),
+CONSTRAINT pk_test5_id PRIMARY KEY(id)
+);
+
+CREATE TABLE test3(
+id INT PRIMARY KEY,
+last_name VARCHAR(15) PRIMARY KEY,
+salary DECIMAL(10,2),
+email VARCHAR(25)
+);
+ 
+CREATE TABLE test4(
+id INT,
+last_name VARCHAR(15),
+salary DECIMAL(10,2),
+email VARCHAR(25),
+CONSTRAINT PRIMARY KEY(id)
+);
+
+SELECT * FROM information_schema.table_constraints
+WHERE table_name = 'test6';
+
+CREATE TABLE test3(
+id INT PRIMARY KEY,
+last_name VARCHAR(15),
+salary DECIMAL(10,2),
+email VARCHAR(25)
+);
+
+CREATE TABLE test6(
+id INT ,
+last_name VARCHAR(15),
+salary DECIMAL(10,2),
+email VARCHAR(25)
+);
+
+ALTER TABLE test6
+ADD PRIMARY KEY(id);
+
+ALTER TABLE test6
+DROP PRIMARY KEY;
+
+DESC test6;
+
