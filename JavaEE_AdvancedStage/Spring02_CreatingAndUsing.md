@@ -43,6 +43,12 @@ User user = (User)context.getBean("user");
 <img src="C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230422104200643.png" alt="image-20230422104200643"  />
 
 ```
+class="" 中填入的是类的路径 包含 包名 加 类名，根路径是 蓝色 java 文件，而不只是类名
+```
+
+![image-20230513214436093](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230513214436093.png)
+
+```
 通过这个方法，不用 new 一个对象，就获取到了一个对象，这就是Ioc/DI思想
 ```
 
@@ -160,7 +166,9 @@ ApplicationContext 对象，创建成功的时候输出标记
 当 beanFactory 创建的时候，并没有加载 bean 对象，而是下方代码使用到 getBean 的时候，才创建对象
 ```
 
+### 平铺com.example.demo
 
+![image-20230513220134144](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230513220134144.png)
 
 ### 3.使用 Bean （可选项）
 
