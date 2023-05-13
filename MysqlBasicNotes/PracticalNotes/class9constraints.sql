@@ -112,6 +112,8 @@ CREATE TABLE student_course(
     score INT,
     UNIQUE KEY(sid,cid)  #复合唯一
 );
+
+ALTER TABLE student_course ADD UNIQUE(sid);
  
 SELECT * FROM information_schema.table_constraints
 WHERE table_name = 'student_course';
@@ -171,3 +173,28 @@ DROP PRIMARY KEY;
 
 DESC test6;
 
+-- 自增长列
+CREATE TABLE test8(
+id INT PRIMARY KEY AUTO_INCREMENT,
+last_name VARCHAR(15)
+);
+
+SELECT * FROM information_schema.table_constraints
+WHERE table_name = 'test8';
+
+
+ SELECT * FROM information_schema.table_constraints
+ WHERE table_name = 'test1';
+
+INSERT INTO test7(id,last_name)
+VALUES (10,'Tom');
+
+SELECT * FROM test7;
+
+ALTER TABLE test8
+MODIFY id INT;
+
+ALTER TABLE test8
+DROP PRIMARY KEY;
+
+DESC test8;

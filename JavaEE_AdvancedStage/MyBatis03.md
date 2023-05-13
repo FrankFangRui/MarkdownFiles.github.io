@@ -390,3 +390,7 @@ public interface ArticleMapper {
 ![image-20230509212819108](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230509212819108.png)
 
 ![image-20230509212831755](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230509212831755.png)
+
+
+
+VO对象的作用
