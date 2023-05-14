@@ -90,7 +90,7 @@ beanName 存储在 AnnotationBeanNameGenarator 类中存储
 ```
 
 ```
-从而就可以直到 bean 对象的命名规则，1.为空 就返回为空的名字 2.名字长度大于 1 ， 第一第二个字母都是大写的情况，直接返回名字 3. 否则就将首字母小写
+从而就可以知道 bean 对象的命名规则，1.为空 就返回为空的名字 2.名字长度大于 1 ， 第一第二个字母都是大写的情况，直接返回名字 3. 否则就将首字母小写
 ```
 
 ```
@@ -105,7 +105,7 @@ beanName 存储在 AnnotationBeanNameGenarator 类中存储
 
 ```
 为什么需要五个类注解
-1）通过类注解，可以直到类的用途是什么 （看到车牌 闽A 就知道是福州的车）
+1）通过类注解，可以知道类的用途是什么 （看到车牌 闽A 就知道是福州的车）
 2）功能有细微不同
 ```
 
@@ -142,16 +142,20 @@ beanName 存储在 AnnotationBeanNameGenarator 类中存储
 ```
 使用 @Bean 方法注解，将方法返回的对象存储到 Spring 中
 如果给所有方法都加 @Bean 注解，Spring在访问的时候，要找查询指定路径下所有类下面的所有方法，效率太低
-和在 resource的 .xml 中不使用 指定路径 来确定 Bean 对象 ，而是用 <bean>标签来确认对象一样，效率很低
+和在 resource的 .xml 中不使用 指定路径 来确定 Bean 对象 ，而是用 <bean> 标签来确认对象一样，效率很低
 ```
 
 ![image-20230426144403834](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230426144403834.png)
 
 ```
-getBean()，中第一个参数指的是 ArticleController 这个类中,会返回对象引用的方法的名字，这个方法前面要有@Bean注解，第二个参数指的是，这个类本身的文件的地址
+getBean()，中第一个参数指的是 ArticleController 这个类中,会返回对象引用的方法的名字，这个方法前面要有@Bean注解，第二个参数指的是，这个类本身的文件的信息
 ```
 
 ![image-20230426144415858](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230426144415858.png)
+
+```
+myBean 是方法名
+```
 
 ![image-20230426144456516](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230426144456516.png)
 
@@ -159,13 +163,13 @@ getBean()，中第一个参数指的是 ArticleController 这个类中,会返回
 
 ![image-20230424092804630](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230424092804630.png)
 
+```
+直接通过 方法名 来调用 获取Bean 对象（方法返回对象引用）(从 类名，变成了方法名字），会出现，如果有多个类，其中有相同的 student 方法，此时 Spring 就会报错
+```
+
 ![image-20230424092821979](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230424092821979.png)
 
 ![image-20230424093755470](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230424093755470.png)
-
-```
-直接通过 方法名 来调用 获取Bean 对象（方法返回对象引用）(从类名，变成了方法名字），会出现，如果有多个类，其中有相同的 student 方法，此时 Spring 就会随机调用一个 bean 对象而不是报错
-```
 
 ```
 如何解决这个问题？
@@ -190,8 +194,6 @@ getBean()，中第一个参数指的是 ArticleController 这个类中,会返回
 用原方法名调用，会报错找不到 student 这个 bean 对象，因为已经给 这个 bean 对象设置了代号了
 就像新车去车管所上牌，没有牌照交警会通融你，旧车去车管所换个牌，没有拍照会吊销驾照
 ```
-
-
 
 ### 从  Spring 更简单地获取 Bean
 
@@ -227,7 +229,123 @@ final 修饰的对象，要么直接赋值（private final int num = 10),要么�
 单一设计原则：逻辑明确 ：只做一件事； 耦合度低
 数据持久类中都是针对一张表的CRUD而不是针对多张表，如果一个业务要同时操作两张表，在业务逻辑层server中写实现，而不是在数据持久层中操作，下次只要更改一张表也是在server中操作
 为什么 “更容易” 因为属性注入简单易用，很容易在一个类中出现多个不必要的变量，就会有可能增加耦合度
+
+字段注入使得你的代码更难进行单元测试，因为你不能在不使用 Spring 的情况下，手动设置这些依赖。最后，字段注入可能会隐藏类的依赖，使得代码更难理解和维护。
 ```
+
+`@Autowired` 是 Spring 框架中的一个注解，它可以对类成员变量、方法和构造函数进行标注，让 Spring 自动满足 bean 依赖的一种方法。然而，过度使用 `@Autowired` 注解可能会违反单一责任原则。这是因为，当你在一个类中注入过多的依赖时，这个类可能就会做太多的事情，违反了单一责任原则。
+
+单一责任原则（SRP）是指一个类应该只有一个引起它变化的原因。如果一个类有两个或更多个引起它变化的原因，那么这个类就应该被拆分为两个或更多个独立的类。
+
+让我们来看一个例子：
+
+```java
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private LoggingService loggingService;
+
+    // ...
+}
+```
+
+在这个例子中，`UserService` 依赖于 `UserRepository`，`EmailService` 和 `LoggingService`。这意味着 `UserService` 的职责不止一个，它负责用户数据的处理，同时也负责发送邮件和日志记录，违反了单一责任原则。
+
+更好的做法是将这个服务拆分成多个服务，每个服务只负责一项任务。例如：
+
+```java
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    // ...
+}
+
+@Service
+public class UserEmailService {
+
+    @Autowired
+    private EmailService emailService;
+
+    // ...
+}
+
+@Service
+public class UserLoggingService {
+
+    @Autowired
+    private LoggingService loggingService;
+
+    // ...
+}
+```
+
+在这个修改后的例子中，我们遵守了单一责任原则，每个服务只负责一项任务。这样做的好处是，如果以后需要修改或扩展某项服务的功能，只需要对应的服务类进行修改，而不会影响到其他的功能。
+
+```java
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private LoggingService loggingService;
+
+    // ...
+}
+```
+
+在这个例子中，`UserService` 依赖于 `UserRepository`，`EmailService` 和 `LoggingService`。这意味着 `UserService` 的职责不止一个，它负责用户数据的处理，同时也负责发送邮件和日志记录，违反了单一责任原则。
+
+更好的做法是将这个服务拆分成多个服务，每个服务只负责一项任务。例如：
+
+```java
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    // ...
+}
+
+@Service
+public class UserEmailService {
+
+    @Autowired
+    private EmailService emailService;
+
+    // ...
+}
+
+@Service
+public class UserLoggingService {
+
+    @Autowired
+    private LoggingService loggingService;
+
+    // ...
+}
+```
+
+在这个修改后的例子中，我们遵守了单一责任原则，每个服务只负责一项任务。这样做的好处是，如果以后需要修改或扩展某项服务的功能，只需要对应的服务类进行修改，而不会影响到其他的功能。
+
+
+
+
 
 ```
 单一设计原则是指一个类或者一个模块只做一件事。让一个类或者一个模块专注于单一的功能，减少耦合性，提高内聚性。这个原则是面向对象设计五大重要原则之一，也被称为 SRP（Single Responsibility Principle。
@@ -329,8 +447,18 @@ Spring4.x之前推荐setter注入
 ![image-20230425093202584](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230425093202584.png)
 
 ```
-而且需要给每个构造方法都加上@Autowired注解
+而且需要给每个构造方法都加上@Autowired注解（非强制）
 ```
+
+在 Spring 中，如果一个类有多个构造函数，Spring 无法知道应该使用哪一个构造函数来实例化 bean。因此，你需要使用 `@Autowired` 注解来指定 Spring 应该使用哪个构造函数。
+
+然而，从 Spring 4.3 开始，如果你的类只有一个构造函数，Spring 会自动选择这个构造函数进行依赖注入，无需显式添加 `@Autowired` 注解。
+
+所以，如果你的类有多个构造函数，并且你想要 Spring 使用其中一个特定的构造函数进行依赖注入，你需要在这个构造函数上添加 `@Autowired` 注解。如果你想要 Spring 能够选择使用多个不同的构造函数，那么你需要在每个构造函数上都添加 `@Autowired` 注解。
+
+但是，请注意，通常情况下，每个类应该只有一个构造函数来接收需要的依赖。这是因为如果一个类需要通过构造函数注入大量的依赖，那么这可能是这个类的职责过多，违反了单一责任原则。在这种情况下，你可能需要考虑重构你的代码，将这个类拆分成多个更小的类，每个类只做一件事情。
+
+
 
 ```
 优点：
@@ -360,6 +488,22 @@ Spring4.x之前推荐setter注入
 ```
 
 以上的实现方式是一个常见的面试问题
+
+```
+当属性注入和构造方法注入同时存在的情况
+```
+
+在你的代码示例中，`DependencyB` 同时使用了字段注入（通过 `@Autowired`）和构造器注入。这种情况下，Spring 框架的行为如下：
+
+1. 首先，Spring 会通过构造器注入创建 `ExampleService` 的实例，并将 `DependencyB` 的实例注入。
+
+2. 然后，Spring 会再次通过字段注入，将另一个 `DependencyB` 的实例注入到 `ExampleService` 中，这将会覆盖通过构造器注入的实例。
+
+这是因为在 Spring 中，构造器注入总是先于字段注入和方法注入执行。
+
+因此，在这个例子中，最终 `ExampleService` 中的 `dependencyB` 字段会是由字段注入设置的实例，而不是构造器注入的实例。
+
+这样的代码可能会导致混淆和不可预见的结果，因为 `DependencyB` 的实例可能不是你预期的那个。一般来说，最好避免在同一个依赖上同时使用多种注入方式。推荐的做法是选择一种注入方式（通常是构造器注入）并在整个类或项目中一致使用。
 
 
 
@@ -446,7 +590,7 @@ ArticleBeans 中放 @Bean 注解修饰的方法，当 Spring 容器需要对象�
 ArticleController 中创建对象引用 Article article 并用
 @Autowired
 @Qualifier("getArticle1")
-修饰，Spring会将找到的Bean对象注入到这个 article 引用当中
+修饰，Spring会将通过@Bean标签或者五大注解找到的Bean对象注入到这个 article 引用当中
 ```
 
 ![image-20230426165219555](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230426165219555.png)
@@ -487,4 +631,160 @@ ArticleBeans 将实例（依赖）注入到 ArticleController 当中
 
 在依赖注入中，"依赖"是指一个组件在完成自身功能时需要与其他组件协作的关系。通过将这些依赖关系注入到组件中，而非让组件自己创建和管理这些关系，可以使组件之间的依赖关系更加清晰和可控。
 ```
+
+## Q&A
+
+### 1.Spring中@Bean注解和 @Autowired 注解是怎样搭配起来的?
+
+在Spring框架中，`@Bean`和`@Autowired`是两个重要的注解，它们主要用于控制和管理对象（也就是"bean"）的生命周期。
+
+`@Bean`注解用于告诉Spring这是一个需要在Spring容器中创建的bean。这通常出现在@Configuration注解的类中，标注在方法上。这个方法会返回一个对象，该对象会被Spring容器管理。例如：
+
+```java
+@Configuration
+public class AppConfig {
+    @Bean
+    public MyBean myBean() {
+        return new MyBean();
+    }
+}
+```
+在上述代码中，`myBean()`方法被`@Bean`注解，这意味着Spring容器会调用这个方法并管理其返回的对象。
+
+然后，我们可以通过`@Autowired`注解来让Spring自动装配这些bean。例如，如果我们有一个类需要一个`MyBean`类型的对象，我们可以这样写：
+
+```java
+public class SomeClass {
+    private final MyBean myBean;
+
+    @Autowired
+    public SomeClass(MyBean myBean) {
+        this.myBean = myBean;
+    }
+}
+```
+在这个例子中，`SomeClass`的构造函数被`@Autowired`注解。当Spring创建`SomeClass`的实例时，它会查找容器中的`MyBean`类型的bean，并自动将其传递给`SomeClass`的构造函数。
+
+需要注意的是，Spring 4.3及更高版本支持对构造函数的隐式自动装配，也就是说如果类只有一个构造函数，那么无需显式地添加`@Autowired`注解，Spring会自动将所需的bean注入到构造函数中。例如，以下代码与前面的例子功能相同，但省略了`@Autowired`注解：
+
+```java
+public class SomeClass {
+    private final MyBean myBean;
+
+    public SomeClass(MyBean myBean) {
+        this.myBean = myBean;
+    }
+}
+```
+
+总的来说，`@Bean`注解和`@Autowired`注解在Spring中的主要作用就是用来创建bean和装配bean，这为我们管理复杂的依赖关系提供了便利。
+
+### 2.加了注解的类都会自动生成bean对象存储在Spring当中吗？
+
+在Spring框架中，并非所有加了注解的类都会自动生成bean对象。仅当类被特定的Spring注解标注时，才会在Spring容器中自动生成bean对象。以下是几个常见的注解：
+
+- `@Component`：这是一个通用注解，表示该类是一个Spring组件。Spring将为被`@Component`标注的类创建bean。
+- `@Service`：用于标注业务层组件，在功能上等同于`@Component`，只是为了更好的区分组件类型。
+- `@Repository`：用于标注数据访问组件，同样等同于`@Component`，但用于区分组件类型。
+- `@Controller`：用于标注控制层组件（如Spring MVC控制器），同样等同于`@Component`，但用于区分组件类型。
+
+这些注解都是用来标注Spring管理的bean的，它们的主要目的是为了区分不同类型的组件。
+
+另外，你还可以使用`@Configuration`注解来定义配置类，然后在该类中使用`@Bean`注解来定义应由Spring管理的bean。例如：
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public MyBean myBean() {
+        return new MyBean();
+    }
+}
+```
+在这个例子中，`AppConfig`是一个配置类，它定义了一个名为`myBean`的bean。
+
+总的来说，要让Spring为一个类自动生成bean，你需要使用适当的注解来标注该类。
+
+### 3.Person person = context.getBean("myBean",Person.class)  中这个myBean是对象名字，还是方法名字？
+
+```
+当bean对象没有设置id的时候，方法名就是id，设置了id之后，只能使用设置的id，方法名就失效了（防止多个类中出现相同方法冲突）
+```
+
+在`context.getBean("myBean", Person.class)`这行代码中，"myBean"是bean的id，通常与bean的创建方法名相同。
+
+在Spring容器中，每个bean都有一个唯一的id。当你使用`@Bean`注解来定义一个bean时，如果你没有提供一个名字，那么方法名就会被作为bean的id。例如，如果你有如下的配置：
+
+```java
+@Configuration
+public class AppConfig {
+    @Bean
+    public Person myBean() {
+        return new Person();
+    }
+}
+```
+
+在这个例子中，"myBean"是方法名，也是bean的id。所以当你调用`context.getBean("myBean", Person.class)`时，你正在请求id为"myBean"且类型为`Person`的bean。
+
+```
+myBean 指代的是方法名字，通过找到这个唯一的方法来找到返回的对象，Person.class 来确定返回的对象的信息（属性等）
+```
+
+如果你想要给bean一个不同于方法名的名字，你可以在`@Bean`注解中提供一个名字，例如：
+
+```java
+@Configuration
+public class AppConfig {
+    @Bean("person")
+    public Person myBean() {
+        return new Person();
+    }
+}
+```
+
+在这个例子中，bean的id是"person"，而不是方法名"myBean"。所以你应该使用`context.getBean("person", Person.class)`来获取这个bean。
+
+### 4.通过bean id是类名来获取bean对象
+
+main方法中：
+
+```
+UserController uc = context.getBean("userController",UserController.class);
+uc.getUser();
+```
+
+ 类中：
+
+```
+@Controller //Controller 控制用户的行为，表示要获取对象 
+public class UserController {    
+        @Autowired    
+        private User user1;     
+        public void getUser() {        
+            System.out.println("User1: " + user1);        
+            User u = user1;        //user1赋值给 u，通过u修改属性，也会影响user1中的属性·               u.setName("李四");        
+            System.out.println("u: " + u);    
+        } 
+} 在这种情况下，()内第一个参数是不是就是类名而不是方法名，第二个参数是类的类型
+```
+
+```
+getBean() 本质上是从Spring容器当中获取对象的，而不是自己去寻找标了@Bean注解的方法或者带有特殊注解的类的，Spring通过识别注解来存储Bean对象，然后程序员可以通过Bean id 和 类型 来getBean对象
+1.通过五大类注解标识的类 getBean(类名，类名.class) 
+类名首字母小写，如果头两个字母都大写（第三个不是大写），那就保留
+来获取Bean对象
+2.通过@Bean 标注的方法，id默认指的是方法名可以通过 @Bean(name={id1,id2}) 来替代方法名，防止不同类中有相同名字的带有@Bean注解的方法，然后后续 getBean(id,Bean对象类.class) id是{}内的名字
+```
+
+在你提供的代码中，`UserController uc = context.getBean("userController", UserController.class);` 这行代码的意思是从Spring容器中获取id为"userController"，类型为`UserController`的bean。
+
+在`context.getBean("userController", UserController.class)`中，"userController"是bean的id，而`UserController.class`是bean的类型。
+
+在Spring中，一个bean的id默认是其创建方法的名字，但在你的代码中，`UserController`类被`@Controller`注解标注，这意味着Spring会为这个类创建一个bean，而bean的id默认是类名的首字母小写形式，即"userController"。
+
+所以在这种情况下，"userController"实际上是类名的首字母小写形式，而不是方法名。因为在你的代码中，并没有使用`@Bean`注解的方法来创建`UserController`的bean，而是直接将`UserController`类标注为一个Spring控制器，所以Spring为这个类创建的bean的id就是类名的首字母小写形式。
+
+总的来说，如果你在一个类上使用了`@Component`、`@Service`、`@Repository`或`@Controller`等注解，那么Spring会为这个类创建一个bean，其id默认是类名的首字母小写形式。如果你在一个方法上使用了`@Bean`注解，那么Spring会调用这个方法来创建一个bean，其id默认是方法名。
 
