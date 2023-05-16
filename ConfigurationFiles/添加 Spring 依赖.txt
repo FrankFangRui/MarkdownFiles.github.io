@@ -11,3 +11,10 @@
         <version>5.2.3.RELEASE</version>
     </dependency>
 </dependencies>
+
+AOP:
+
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-aop</artifactId>
+</dependency>
