@@ -198,3 +198,51 @@ ALTER TABLE test8
 DROP PRIMARY KEY;
 
 DESC test8;
+
+# 外键约束
+
+# 先创建主表
+CREATE TABLE dept1(
+dept_id INT,
+dept_name VARCHAR(15)
+);
+
+# 创建从表
+
+CREATE TABLE emp1(
+emp_id INT PRIMARY KEY AUTO_INCREMENT,
+emp_name VARCHAR(15),
+department_id INT,
+CONSTRAINT fk_emp1_dept_id FOREIGN KEY (department_id) REFERENCES dept1(dept_id)
+);
+
+ALTER TABLE dept1
+MODIFY dept_id INT PRIMARY KEY;
+
+SHOW TABLES
+
+DESC dept1;
+
+DESC emp1;
+
+USE atguigudb;
+SELECT * FROM information_schema.table_constraints
+WHERE table_name = 'employees';
+ 
+# check 约束
+CREATE TABLE test10 (
+id INT,
+last_name VARCHAR(15),
+salary DECIMAL(10,2) CHECK(salary > 2000)
+);
+
+INSERT INTO test10
+VALUES(1,'Tom',1500);
+
+SELECT * 
+FROM test10;
+
+SELECT VERSION();
+
+ALTER TABLE test10 MODIFY id INT PRIMARY KEY AUTO_INCREMENT;
+SET AUTO_INCREMENT = 10;

@@ -47,6 +47,16 @@
 ![image-20230516193902073](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230516193902073.png)
 
 ```
+这两个模式都是Ant-style路径模式，用于匹配文件路径。这两个模式的区别在于它们匹配的路径深度。
+
+- `/**/*.html`：这个模式将匹配所有深度的路径，只要它们以`.html`结束。例如，它将匹配`/page.html`、`/pages/page.html`、`/pages/subpages/page.html`等。
+
+- `/*.html`：这个模式只匹配一级的路径，即只有在根目录下的`.html`文件会被匹配。例如，它将匹配`/page.html`，但不会匹配`/pages/page.html`或`/pages/subpages/page.html`。
+
+所以，如果你想排除所有深度路径下的`.html`文件，你应该使用`/**/*.html`。如果你只想排除根目录下的`.html`文件，你应该使用`/*.html`。
+```
+
+```
 如果上面的 addInterceptors 方法同时存在，那么可以不添加前缀来访问不拦截的URL地址
 即 localhost:8080/user/login 也能访问成功，但是如果把代码注释掉（上图）
 就需要给所有 URL 都加上前缀才能正常访问
@@ -86,5 +96,35 @@
 
 ```
 返回一个 json 类型的数据给前端，这样前端就可以进行处理，返回报错页面
+```
+
+## 统一数据返回格式
+
+```
+1.给类加上 @ControllerAdvice 注释
+2.实现 implements ResponseBodyAdvice 接口
+重写 supports , beforeBodyWrite 方法
+```
+
+![image-20230517123307122](C:\Users\方锐\AppData\Roaming\Typora\typora-user-images\image-20230517123307122.png)
+
+```
+将要传送给前端的数据，经过 ResponseAdvice 这个类进行处理
+```
+
+`ObjectMapper`是Jackson库中的一个类，Jackson是一个在Java中广泛使用的JSON处理库。`ObjectMapper`提供了一种简单的方式来将Java对象序列化为JSON并反序列化为Java对象。
+
+这里是`ObjectMapper`的一些主要功能：
+
+- **序列化**：将Java对象转换为JSON格式。例如，您可能有一个用户对象，您希望将其转换为JSON以发送到Web服务。
+
+- **反序列化**：将JSON字符串解析并转换为Java对象。例如，您可能从Web服务接收到一个用户的JSON表示，您希望将其转换为Java对象以便在您的应用程序中使用。
+
+- **数据绑定**：将JSON字符串转换为Java对象或将Java对象转换为JSON。
+
+在您提供的代码中，`ObjectMapper`用于将Java HashMap对象转换为JSON字符串。这是通过调用`writeValueAsString()`方法完成的，该方法接受一个对象作为参数，将其转换为JSON字符串，然后返回该字符串。如果在转换过程中出现错误（例如，无法序列化对象），则会抛出`JsonProcessingException`。
+
+```
+通过将 String 转换成 json 类型数据传递给前端
 ```
 
